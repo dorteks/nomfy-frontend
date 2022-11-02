@@ -21,8 +21,12 @@ const CustomerLayout = ({ children }: Props) => {
           <Box>
             <Sidebar>
               <h1>Dashboard</h1>
-              <h1>Shops</h1>
-              <h1>My Shops</h1>
+              <Link href="/home/shops">
+                <h1>Shops</h1>
+              </Link>
+              <Link href="/home/my-shops">
+                <h1>My Shops</h1>
+              </Link>
               <Link href="/home/products">
                 <h1>Products</h1>
               </Link>
@@ -47,7 +51,7 @@ const CustomerLayout = ({ children }: Props) => {
               <Link href="/home/orders">
                 <h1>Orders</h1>
               </Link>
-              <Link href="/home/order_status">
+              <Link href="/home/order-status">
                 <h1>Order Status</h1>
               </Link>
               <h1>Create Order</h1>
