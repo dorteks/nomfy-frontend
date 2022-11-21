@@ -1,18 +1,51 @@
 import { Stack } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import Head from "next/head";
-import { useForm } from "react-hook-form";
-import { setRegAtom } from "../../app/atom/register.atom";
+import { setRegisterStepAtom } from "../../app/atom/register.atom";
 import Button from "../../components/button";
 import Form from "../../components/form";
 import Input from "../../components/input";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+
+const schema = yup.object().shape({
+  firstName: yup
+    .string()
+    .trim()
+    .matches(/^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,0-9`"~(){}[\]]{1,30}$/gm)
+    .required(),
+
+  lastName: yup
+    .string()
+    .trim()
+    .matches(/^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,0-9`"~(){}[\]]{1,30}$/gm)
+    .required(),
+
+  email: yup.string().trim().email().required(),
+  password: yup.string().min(8).required(),
+  role: yup.string().trim().required(),
+});
+
+const defaultValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  role: "",
+};
 
 const Register = () => {
-  const [_, setStep] = useAtom(setRegAtom);
-  const rhf = useForm({ mode: "onChange" });
+  const [_, setStep] = useAtom(setRegisterStepAtom);
+  const rhf = useForm<any>({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+    defaultValues,
+  });
 
   const onSubmit = () => {
-    setStep("nextReg");
+    setStep("next");
   };
 
   return (
