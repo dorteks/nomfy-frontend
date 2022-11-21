@@ -1,16 +1,16 @@
 import { atom } from "jotai";
 
-const regAtom = atom(0);
+const registerStepAtom = atom(0);
 
-export const getRegAtom = atom((get) => get(regAtom));
+export const getRegisterStepAtom = atom((get) => get(registerStepAtom));
 
-export const setRegAtom = atom(
+export const setRegisterStepAtom = atom(
   null,
-  (get, set, update: "nextReg" | "prevReg") => {
-    let next = get(regAtom);
-    if (update === "nextReg") next = (get(regAtom) + 1) % 2;
-    if (update === "prevReg") next = (get(regAtom) - 1) % 2;
+  (get, set, update: "next" | "prev") => {
+    let next = get(registerStepAtom);
+    if (update === "next") next = (get(registerStepAtom) + 1) % 2;
+    if (update === "prev") next = (get(registerStepAtom) - 1) % 2;
 
-    set(regAtom, next);
+    set(registerStepAtom, next);
   }
 );

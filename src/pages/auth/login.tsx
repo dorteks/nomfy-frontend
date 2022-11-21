@@ -5,10 +5,18 @@ import Button from "../../components/button";
 import { useForm } from "react-hook-form";
 import { Stack } from "@chakra-ui/react";
 
-const Login = () => {
-  const rhf = useForm({ mode: "onChange" });
+type FormValues = {
+  email: string;
+  password: string;
+};
 
-  const onSubmit = () => {};
+const Login = () => {
+  const rhf = useForm<FormValues>({ mode: "onChange" });
+
+  const onSubmit = (data: FormValues) => {
+    console.log("submit button clicked");
+    console.log(data);
+  };
 
   return (
     <>
@@ -32,7 +40,9 @@ const Login = () => {
             />
           </Stack>
 
-          <Button w="full">Login</Button>
+          <Button w="full" type="submit">
+            Login
+          </Button>
         </Form>
       </Stack>
     </>
