@@ -29,7 +29,8 @@ const AppProviders = ({ children, pageProps }: Props) => {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient.current}>
-        <Hydrate state={pageProps.dehydratedState}>{children}</Hydrate>
+        {/* <Hydrate state={pageProps.dehydratedState}>{children}</Hydrate> */}
+        {children}
       </QueryClientProvider>
     </ChakraProvider>
   );
