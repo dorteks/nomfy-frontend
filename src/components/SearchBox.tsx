@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
-import { CloseIcon, DownloadIcon, SearchIcon } from "@chakra-ui/icons";
+import { AddIcon, CloseIcon, DownloadIcon, SearchIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 
 export const DownloadReport = () => {
@@ -35,10 +35,31 @@ export const DisabledButton = () => {
 
 export const CreateShopButton = () => {
   return (
-    <Link href="/pickbazar/shops/create-shop">
+    <Link href="/pickbazar/shops/create">
       <Box display="flex" borderRadius="3px" alignContent="center">
         <Button size="md" h="35px" mr="40px">
           Create Shop
+        </Button>
+      </Box>
+    </Link>
+  );
+};
+
+export const AddGroupButton = () => {
+  return (
+    <Link href="/pickbazar/groups/create">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        borderRadius="3px"
+        alignContent="center"
+      >
+        <Button
+          size="md"
+          mr="40px"
+          leftIcon={<AddIcon mr="5px" boxSize="12px" />}
+        >
+          Add Group
         </Button>
       </Box>
     </Link>

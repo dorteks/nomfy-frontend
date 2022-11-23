@@ -13,6 +13,10 @@ type Props = {
   input2?: React.ReactNode;
   input3?: React.ReactNode;
   input4?: React.ReactNode;
+  input5?: React.ReactNode;
+  input6?: React.ReactNode;
+  input7?: React.ReactNode;
+  input8?: React.ReactNode;
   textarea?: React.ReactNode;
 };
 
@@ -27,6 +31,10 @@ const ShopCard = ({
   input2,
   input3,
   input4,
+  input5,
+  input6,
+  input7,
+  input8,
   textarea,
 }: Props) => {
   return (
@@ -66,7 +74,12 @@ const ShopCard = ({
           {input2}
           {input3}
           {input4}
+          {input5}
+          {input6}
+          {input7}
+          {input8}
           {textarea}
+          {<Box />}
           <Text textColor="gray.500" fontWeight="hairline" fontSize="14px">
             {text1}
           </Text>
