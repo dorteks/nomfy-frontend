@@ -15,6 +15,7 @@ import { CiApple } from "react-icons/ci";
 import { MdOutlineBakeryDining, MdOutlineChair } from "react-icons/md";
 import { GiLargeDress, GiPowder } from "react-icons/gi";
 import { BsBook, BsHandbag } from "react-icons/bs";
+import Link from "next/link";
 
 const GroupsTable = () => {
   return (
@@ -40,7 +41,9 @@ const GroupsTable = () => {
               <Td>
                 {" "}
                 <DeleteIcon mr="20px" boxSize="20px" color="red.500" />
-                <EditIcon boxSize="20px" color="gray.500" />
+                <Link href="groups/edit">
+                  <EditIcon boxSize="20px" color="gray.500" />
+                </Link>
               </Td>
             </Tr>
             <Tr>

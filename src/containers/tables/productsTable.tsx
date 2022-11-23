@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import Link from "next/link";
 
 const ProductsTable = () => {
   return (
@@ -53,7 +54,9 @@ const ProductsTable = () => {
               <Td>
                 {" "}
                 <DeleteIcon mr="20px" boxSize="20px" color="red.500" />
-                <EditIcon boxSize="20px" color="gray.500" />
+                <Link href="products/edit">
+                  <EditIcon boxSize="20px" color="gray.500" />
+                </Link>
               </Td>
             </Tr>
             <Tr>
