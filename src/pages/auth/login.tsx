@@ -4,19 +4,23 @@ import Input from "../../components/input";
 import Button from "../../components/button";
 import { useForm } from "react-hook-form";
 import { Stack } from "@chakra-ui/react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-type FormValues = {
-  email: string;
-  password: string;
+const schema = yup.object().shape({
+  email: yup.string().trim().email().required(),
+  password: yup.string().min(8).required(),
+});
+
+const defaultValues = {
+  email: "",
+  password: "",
 };
 
 const Login = () => {
-  const rhf = useForm<FormValues>({ mode: "onChange" });
+  const rhf = useForm<any>({ mode: "onChange" });
 
-  const onSubmit = (data: FormValues) => {
-    console.log("submit button clicked");
-    console.log(data);
-  };
+  const onSubmit = (values: any) => {};
 
   return (
     <>

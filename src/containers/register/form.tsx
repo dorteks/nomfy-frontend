@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
+import { useCreateUser } from "../../app/api/auth/user.mutation";
 
 const schema = yup.object().shape({
   firstName: yup
@@ -38,15 +39,19 @@ const defaultValues = {
 
 const Register = () => {
   const [_, setStep] = useAtom(setRegisterStepAtom);
+  const { mutate: createUser, isLoading, isSuccess } = useCreateUser();
   const rhf = useForm<any>({
     mode: "onChange",
     resolver: yupResolver(schema),
     defaultValues,
   });
 
-  const onSubmit = () => {
+  const onSubmit = (values: any) => createUser(values);
+
+  React.useEffect(() => {
+    if (!isSuccess) return;
     setStep("next");
-  };
+  }, [isSuccess, setStep]);
 
   return (
     <>
@@ -83,14 +88,20 @@ const Register = () => {
               placeholder="Password"
               control={rhf.control}
             />
-            <Input
+            {/* <Input
               type="role"
               name="role"
               placeholder="Role"
               control={rhf.control}
-            />
+            /> */}
           </Stack>
-          <Button w="full" type="submit">
+          <Button
+            w="full"
+            type="submit"
+            loadingText="Loading"
+            isLoading={isLoading || isSuccess}
+            disabled={!rhf.formState.isValid || isLoading || isSuccess}
+          >
             Register
           </Button>
         </Form>

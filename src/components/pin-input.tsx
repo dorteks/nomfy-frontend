@@ -22,4 +22,5 @@ const PinInputField = ({
     {...props}
   />
 );
+
 export default PinInputField;
