@@ -1,4 +1,4 @@
-import { AuthService } from "./auth.service";
+import { AuthService, createUserInputType } from "./auth.service";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { setToken } from "../../utils";
 

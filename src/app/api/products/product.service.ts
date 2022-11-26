@@ -10,6 +10,7 @@ export type GetAllProductsParams = {
   status?: string;
   perpage?: number;
   sort?: "asc" | "desc";
+  sku?: string;
 };
 
 export type CreateProductInputType = {
@@ -36,11 +37,13 @@ const getAll = async (params: GetAllProductsParams) => {
 
 const createProduct = async (input: CreateProductInputType) => {
   const res = await axios.post("/products/create", input);
+  console.log("input sent to axios", input);
   return res.data;
 };
 // url
 const updateProduct = async (input: CreateProductInputType) => {
-  const res = await axios.put(`/products/${name}/edit`, input);
+  // const res = await axios.put(`/products/${name}/edit`, input);
+  const res = await axios.put(`/products/edit`, input);
   return res.data;
 };
 
