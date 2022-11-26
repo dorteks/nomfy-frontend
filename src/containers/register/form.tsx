@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useCreateUser } from "../../app/api/auth/user.mutation";
+import { useCreateUser } from "../../app/api/auth/auth.mutation";
 
 const schema = yup.object().shape({
   firstName: yup
@@ -34,19 +34,40 @@ const defaultValues = {
   lastName: "",
   email: "",
   password: "",
-  role: "",
 };
 
 const Register = () => {
   const [_, setStep] = useAtom(setRegisterStepAtom);
-  const { mutate: createUser, isLoading, isSuccess } = useCreateUser();
-  const rhf = useForm<any>({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-    defaultValues,
-  });
 
-  const onSubmit = (values: any) => createUser(values);
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [role, setRole] = React.useState("");
+
+  // const rhf = useForm<any>({
+  //   mode: "onChange",
+  //   resolver: yupResolver(schema),
+  //   defaultValues,
+  // });
+
+  const {
+    mutate: createUser,
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useCreateUser();
+  console.log("data-", data);
+  console.log("isSuccess", isSuccess);
+  console.log("isError", isError);
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(firstName, lastName, email, password, role);
+
+    createUser({ firstName, lastName, email, password, role });
+  };
 
   React.useEffect(() => {
     if (!isSuccess) return;
@@ -59,52 +80,46 @@ const Register = () => {
         <title>Register</title>
       </Head>
       <Stack alignItems="center" justifyContent="center" mt={100}>
-        <Form onSubmit={rhf.handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           <Stack mb={8} spacing={4}>
             <Stack direction="row">
-              <Input
+              <input
                 type="text"
                 name="firstName"
                 placeholder="First Name"
-                control={rhf.control}
+                onChange={(e) => setFirstName(e.target.value)}
               />
-              <Input
+              <input
                 type="text"
                 name="lastName"
                 placeholder="Last Name"
-                control={rhf.control}
+                onChange={(e) => setLastName(e.target.value)}
               />{" "}
             </Stack>
 
-            <Input
+            <input
               type="email"
               name="email"
               placeholder="Email"
-              control={rhf.control}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <Input
+            <input
               type="password"
               name="password"
               placeholder="Password"
-              control={rhf.control}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            {/* <Input
-              type="role"
+            <input
+              type="text"
               name="role"
-              placeholder="Role"
-              control={rhf.control}
-            /> */}
+              placeholder="role"
+              onChange={(e) => setRole(e.target.value)}
+            />
           </Stack>
-          <Button
-            w="full"
-            type="submit"
-            loadingText="Loading"
-            isLoading={isLoading || isSuccess}
-            disabled={!rhf.formState.isValid || isLoading || isSuccess}
-          >
+          <Button w="full" type="submit">
             Register
           </Button>
-        </Form>
+        </form>
       </Stack>
     </>
   );

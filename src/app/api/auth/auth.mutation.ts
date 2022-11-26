@@ -4,9 +4,47 @@ import { AuthService } from "./auth.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useLogin = () => {
-  return useMutation((input: any) => AuthService.login(input), {
+  return useMutation((input: { email: string; password: string }) => {
+    console.log("input sent to useLogin-axios ", input);
+    return AuthService.login(input);
+  });
+};
+
+export const useCreateUser = () => {
+  const client = useQueryClient();
+  return useMutation((input: any) => AuthService.registerUser(input), {
+    onSuccess: (data) => {
+      client.setQueryData(["auth-email"], data.email);
+    },
+  });
+};
+
+export const useVerifyRUser = () => {
+  const client = useQueryClient();
+  return useMutation(
+    (input: { email: any; loginOTP: string }) => {
+      console.log("input for verifyRUser", input);
+      return AuthService.verifyRUser(input);
+    },
+
+    {
+      onSuccess: (data) => {
+        console.log("data from verify register user", data);
+        setToken(data.token);
+        client.setQueryData(["auth"], data);
+        client.setQueryData(["auth-email"], undefined);
+      },
+    }
+  );
+};
+
+export const useVerifyUser = () => {
+  const client = useQueryClient();
+  return useMutation((input: any) => AuthService.verifyUser(input), {
     onSuccess: (data) => {
       setToken(data.token);
+      client.setQueryData(["auth"], data);
+      client.setQueryData(["auth-email"], undefined);
     },
   });
 };

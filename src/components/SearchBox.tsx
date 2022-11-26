@@ -45,6 +45,27 @@ export const CreateShopButton = () => {
   );
 };
 
+export const AddProductButton = () => {
+  return (
+    <Link href="/pickbazar/products/create">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        borderRadius="3px"
+        alignContent="center"
+      >
+        <Button
+          size="md"
+          mr="40px"
+          leftIcon={<AddIcon mr="5px" boxSize="12px" />}
+        >
+          Add Product
+        </Button>
+      </Box>
+    </Link>
+  );
+};
+
 export const AddGroupButton = () => {
   return (
     <Link href="/pickbazar/groups/create">

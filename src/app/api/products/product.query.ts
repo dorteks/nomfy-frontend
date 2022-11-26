@@ -11,8 +11,16 @@ export const useGetProduct = (params: GetProductParams) => {
   });
 };
 
-export const useGetAllProducts = (params: GetAllProductsParams) => {
+export const useGetAllProducts = (
+  params: GetAllProductsParams,
+  onSuccess: any,
+  onError: any
+) => {
   return useQuery(["getAllProducts", params], () => {
-    ProductService.getAll(params);
+    ProductService.getAll(params),
+      {
+        onSuccess: onSuccess,
+        onError: onError,
+      };
   });
 };
