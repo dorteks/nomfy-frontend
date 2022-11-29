@@ -5,22 +5,17 @@ import {
 } from "./product.service";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetProduct = (params: GetProductParams) => {
-  return useQuery(["getProducts", params], () => {
-    ProductService.getOne(params);
+// sorted
+export const useGetAllProducts = (params: GetAllProductsParams) => {
+  return useQuery(["getAllProducts", params], () => {
+    const res = ProductService.getAll(params);
+    return res;
   });
 };
 
-export const useGetAllProducts = (
-  params: GetAllProductsParams,
-  onSuccess: any,
-  onError: any
-) => {
-  return useQuery(["getAllProducts", params], () => {
-    ProductService.getAll(params),
-      {
-        onSuccess: onSuccess,
-        onError: onError,
-      };
+// not sorted
+export const useGetProduct = (params: GetProductParams) => {
+  return useQuery(["getProducts", params], () => {
+    ProductService.getOne(params);
   });
 };

@@ -80,7 +80,7 @@ const Sidebar = () => {
               <Avatar
                 name=""
                 boxSize="100px"
-                src="../../public/assets/user.png"
+                src="/assets/user.png"
                 borderRadius="full"
                 mb="10px"
               />

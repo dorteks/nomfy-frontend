@@ -1,17 +1,19 @@
-import { Input, Textarea } from "@chakra-ui/react";
-import Button from "../../../components/button";
-import Header from "../../../components/Header";
-import Layout from "../../../components/createShop/Layout";
-import { Divider } from "@chakra-ui/react";
-import { FiUploadCloud } from "react-icons/fi";
-import ShopCard from "../../../components/createShop/shopCard";
-import Form from "../../../components/form";
-import React from "react";
-import { useCreateShop } from "../../../app/api/shops/shop.mutation";
-import { useRouter } from "next/router";
+import { Box, Divider, Input, Textarea } from "@chakra-ui/react";
 import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { FiUploadCloud } from "react-icons/fi";
+import { useUpdateProduct } from "../../../app/api/products/product.mutation";
+import { useUpdateShop } from "../../../app/api/shops/shop.mutation";
+import Button from "../../../components/button";
+import Layout from "../../../components/createShop/Layout";
+import ShopCard from "../../../components/createShop/shopCard";
+import CustomLayout from "../../../components/CustomLayout";
+import Form from "../../../components/form";
+import Header from "../../../components/Header";
 
-const CreateShop = () => {
+const EditShop = () => {
   const [name, setName] = React.useState("");
   const [logo, setLogo] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -36,7 +38,7 @@ const CreateShop = () => {
 
   const router = useRouter();
 
-  const { mutate, isSuccess, isError, data } = useCreateShop();
+  const { mutate, isSuccess, isError, data } = useUpdateShop();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -47,6 +49,8 @@ const CreateShop = () => {
 
     mutate(mutateValues);
     console.log("mutateValues - ", mutateValues);
+
+    if (isSuccess) router.push("/shops");
 
     // upload image to backend
     const fd = new FormData();
@@ -68,29 +72,13 @@ const CreateShop = () => {
 
   return (
     <Layout>
-      <Header title="Create Shop" subtitle={""} report={""} />
+      <Header
+        title="Your shop is not activated yet. You can't proceed further operations"
+        subtitle={""}
+        report={""}
+      />
       <Divider />
       <form onSubmit={handleSubmit}>
-        ShopCards to be inserted inside form
-        <ShopCard
-          title="Logo"
-          subtitle="Upload your shop logo from here"
-          input1={<Input type="file" onChange={handleSelectFile} />}
-          icon={<FiUploadCloud size="30px" />}
-          text1=" Upload an image or drag and drop"
-          text2="PNG, JPG"
-        />
-        <Divider />
-        {/* <ShopCard
-          title="Cover Image"
-          subtitle="Upload your shop cover image from here"
-          subtitle2="Dimension of the cover image should be 1170 x 435px"
-          input1={<Input type="file" onChange={handleSelectFile} />}
-          icon={<FiUploadCloud size="30px" />}
-          text1=" Upload an image or drag and drop"
-          text2="PNG, JPG"
-        /> */}
-        <Divider />
         <ShopCard
           title="Basic Info"
           subtitle="Add some basic info about your shop from here"
@@ -116,36 +104,9 @@ const CreateShop = () => {
           input3={<Input placeholder="Bank Name" />}
           input4={<Input placeholder="Account Number" />}
         />
+
         <Divider />
-        <ShopCard
-          title="Shop Address"
-          subtitle="Add your physical shop address from here"
-          input1={<Input placeholder="Country" />}
-          input2={<Input placeholder="City" />}
-          input3={<Input placeholder="State" />}
-          input4={<Input placeholder="Zip" />}
-          textarea={<Textarea placeholder="Street Address" />}
-        />
-        <Divider />
-        <ShopCard
-          title="Shop Settings"
-          subtitle="Add your shop settings information from here"
-          input1={<Input placeholder="Set location from map" />}
-          input2={
-            <Input
-              placeholder="Contact Number"
-              onChange={(e) => setPhonenumber(e.target.value)}
-            />
-          }
-          input3={
-            <Input
-              placeholder="Website"
-              onChange={(e) => setWebsite(e.target.value)}
-            />
-          }
-          input4={<Button>Add New Social Profile</Button>}
-        />
-        <Divider />
+
         <Button type="submit" mt="25px" mb="100px">
           Add Shop
         </Button>
@@ -154,4 +115,4 @@ const CreateShop = () => {
   );
 };
 
-export default CreateShop;
+export default EditShop;

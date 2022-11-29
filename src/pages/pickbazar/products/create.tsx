@@ -33,6 +33,7 @@ const AddProduct = () => {
     sku,
   };
 
+  // should data be undefined??
   const { mutate, isSuccess, isError, data } = useCreateProduct();
 
   const handleSubmit = (e: any) => {
@@ -47,7 +48,9 @@ const AddProduct = () => {
     // upload image to backend
     const fd = new FormData();
     fd.append("image", featuredImage);
-    axios.post("/products/create", fd).then((res) => console.log(res));
+    axios.post("products/create", fd).then((res) => console.log(res));
+    console.log("image uploaded here");
+    console.log(fd.get("image"));
   };
 
   const handleSelectFile = (event: any) => {

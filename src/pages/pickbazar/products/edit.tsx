@@ -32,6 +32,7 @@ const EditProduct = () => {
     sku,
   };
 
+  // data is undefined??
   const { mutate, isSuccess, isError, data } = useUpdateProduct();
 
   const handleSubmit = (e: any) => {
@@ -42,7 +43,12 @@ const EditProduct = () => {
     console.log("data", data);
 
     mutate(mutateValues);
-    console.log(mutateValues);
+    console.log("mutateValues", mutateValues);
+  };
+
+  const handleSelectFile = (event: any) => {
+    setFeaturedImage(event.target.files[0]);
+    console.log("event-", event.target.files[0]);
   };
 
   return (
@@ -55,6 +61,7 @@ const EditProduct = () => {
           <ShopCard
             title="Featured Image"
             subtitle="Upload your product image here"
+            input1={<Input type="file" onChange={handleSelectFile} />}
             icon={<FiUploadCloud size="30px" />}
             text1=" Upload an image or drag and drop"
             text2="PNG, JPG"
@@ -64,6 +71,7 @@ const EditProduct = () => {
             title="Gallery"
             subtitle="Upload your product image gallery here"
             subtitle2="Dimension of the cover image should be 1170 x 435px"
+            input1={<Input type="file" onChange={handleSelectFile} />}
             icon={<FiUploadCloud size="30px" />}
             text1=" Upload an image or drag and drop"
             text2="PNG, JPG"
