@@ -86,8 +86,8 @@ const CreateShop = () => {
 
   React.useEffect(() => {
     if (!isSuccess) return;
-    if (isSuccess) router.push("/shops");
-  }, []);
+    if (isSuccess) router.push("/pickbazar/shops");
+  }, [isSuccess, router]);
 
   const handleSelectFile = (e: any) => {
     setLogo(e.target.files[0]);

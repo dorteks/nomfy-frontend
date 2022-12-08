@@ -1,16 +1,13 @@
-import { Box, Divider, Input, Textarea } from "@chakra-ui/react";
+import { Divider, Input, Textarea } from "@chakra-ui/react";
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { FiUploadCloud } from "react-icons/fi";
-import { useUpdateProduct } from "../../../app/api/products/product.mutation";
 import { useUpdateShop } from "../../../app/api/shops/shop.mutation";
 import Button from "../../../components/button";
 import Layout from "../../../components/createShop/Layout";
 import ShopCard from "../../../components/createShop/shopCard";
-import CustomLayout from "../../../components/CustomLayout";
-import Form from "../../../components/form";
+
 import Header from "../../../components/Header";
 
 const EditShop = () => {
@@ -50,8 +47,6 @@ const EditShop = () => {
     mutate(mutateValues);
     console.log("mutateValues - ", mutateValues);
 
-    if (isSuccess) router.push("/shops");
-
     // upload image to backend
     const fd = new FormData();
     fd.append("image", logo);
@@ -62,8 +57,9 @@ const EditShop = () => {
 
   React.useEffect(() => {
     if (!isSuccess) return;
-    if (isSuccess) router.push("/shops");
-  }, []);
+    if (isSuccess) router.push("/pickbazar/shops");
+    // reload page
+  }, [isSuccess, router]);
 
   const handleSelectFile = (e: any) => {
     setLogo(e.target.files[0]);

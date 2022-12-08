@@ -57,8 +57,9 @@ const AddProduct = () => {
 
   React.useEffect(() => {
     if (!isSuccess) return;
-    if (isSuccess) router.push("/products");
-  }, []);
+    if (isSuccess) router.push("/pickbazar/products");
+    // reload window
+  }, [isSuccess, router]);
 
   const handleSelectFile = (e: any) => {
     setFeaturedImage(e.target.files[0]);

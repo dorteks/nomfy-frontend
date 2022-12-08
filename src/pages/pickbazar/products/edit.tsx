@@ -1,5 +1,6 @@
 import { Box, Divider, Input, Textarea } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { useUpdateProduct } from "../../../app/api/products/product.mutation";
@@ -32,6 +33,8 @@ const EditProduct = () => {
     sku,
   };
 
+  const router = useRouter();
+
   // data is undefined??
   const { mutate, isSuccess, isError, data } = useUpdateProduct();
 
@@ -49,6 +52,12 @@ const EditProduct = () => {
     setFeaturedImage(event.target.files[0]);
     console.log("event-", event.target.files[0]);
   };
+
+  React.useEffect(() => {
+    if (!isSuccess) return;
+    if (isSuccess) router.push("/pickbazar/products");
+    // reload window
+  }, [isSuccess, router]);
 
   return (
     <CustomLayout>
