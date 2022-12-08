@@ -13,10 +13,19 @@ import {
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import { CloseIcon, ViewIcon } from "@chakra-ui/icons";
+import { useGetAllShops } from "../../app/api/shops/shop.query";
+import Link from "next/link";
 
 const ShopsTable = () => {
+  const { data, isError, isLoading, isSuccess } = useGetAllShops({});
+  console.log("data", data);
+  console.log("isError", isError);
+  console.log("isSuccess", isSuccess);
+
   return (
     <Box>
+      {isLoading && <h1>Loading...</h1>}
+
       <TableContainer borderRadius="10px" mr="10px">
         <Table variant="simple" fontWeight="hairline" textColor="gray.600">
           <TableHead bg="gray.100" h={14}>
@@ -24,97 +33,40 @@ const ShopsTable = () => {
               <Th>Logo</Th>
               <Th>Name</Th>
               <Th>Owner Name</Th>
-              <Th>Products</Th>
-              <Th>Orders</Th>
-              <Th>Status</Th>
+              <Th>Description</Th>
+              <Th>Contact</Th>
+              <Th>Website</Th>
               <Th>Actions</Th>
             </Tr>
           </TableHead>
-          <TableBody bg="white" h={80} padding="16px 12px">
-            <Tr>
-              <Td>img</Td>
-              <Td>Furniture Shop</Td>
-              <Td>Store Owner</Td>
-              <Td>55</Td>
-              <Td>8</Td>
+          <TableBody bg="white" h={20} padding="16px 12px">
+            {data?.map((shop: any) => {
+              return (
+                <Tr key={shop.name}>
+                  <Td> {shop.logo} </Td>
+                  <Td> {shop.name} </Td>
+                  <Td>Store Owner</Td>
+                  <Td> {shop.description} </Td>
+                  <Td> {shop.phoneNumber} </Td>
 
-              <Td>
-                <Tabs variant="soft-rounded" colorScheme="green">
-                  <TabList>
-                    <Tab fontSize="14px" fontWeight="hairline">
-                      Active
-                    </Tab>
-                  </TabList>
-                </Tabs>
-              </Td>
-              <Td>
-                <CloseIcon mr="30px" boxSize="15px" color="red.500" />
-                <ViewIcon boxSize="20px" color="gray.500" />
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>img</Td>
-              <Td>Clothing Shop</Td>
-              <Td>Store Owner</Td>
-              <Td>64</Td>
-              <Td>4</Td>
-
-              <Td>
-                <Tabs variant="soft-rounded" colorScheme="green">
-                  <TabList>
-                    <Tab fontSize="14px" fontWeight="hairline">
-                      Active
-                    </Tab>{" "}
-                  </TabList>
-                </Tabs>
-              </Td>
-              <Td>
-                <CloseIcon mr="30px" boxSize="15px" color="red.500" />
-                <ViewIcon boxSize="20px" color="gray.500" />
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>img</Td>
-              <Td>Bags Shop</Td>
-              <Td>Store Owner</Td>
-              <Td>15</Td>
-              <Td>7</Td>
-
-              <Td>
-                <Tabs variant="soft-rounded" colorScheme="green">
-                  <TabList>
-                    <Tab fontSize="14px" fontWeight="hairline">
-                      Active
-                    </Tab>{" "}
-                  </TabList>
-                </Tabs>
-              </Td>
-              <Td>
-                <CloseIcon mr="30px" boxSize="15px" color="red.500" />
-                <ViewIcon boxSize="20px" color="gray.500" />
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>img</Td>
-              <Td>Makeup Shop</Td>
-              <Td>Store Owner</Td>
-              <Td>81</Td>
-              <Td>3</Td>
-
-              <Td>
-                <Tabs variant="soft-rounded" colorScheme="green">
-                  <TabList>
-                    <Tab fontSize="14px" fontWeight="hairline">
-                      Active
-                    </Tab>{" "}
-                  </TabList>
-                </Tabs>
-              </Td>
-              <Td>
-                <CloseIcon mr="30px" boxSize="15px" color="red.500" />
-                <ViewIcon boxSize="20px" color="gray.500" />
-              </Td>
-            </Tr>
+                  <Td>
+                    <Tabs variant="soft-rounded" colorScheme="green">
+                      <TabList>
+                        <Tab fontSize="14px" fontWeight="hairline">
+                          {shop.website}
+                        </Tab>
+                      </TabList>
+                    </Tabs>
+                  </Td>
+                  <Td>
+                    <CloseIcon mr="30px" boxSize="15px" color="red.500" />
+                    <Link href="shops/shop">
+                      <ViewIcon boxSize="20px" color="gray.500" />
+                    </Link>
+                  </Td>
+                </Tr>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>

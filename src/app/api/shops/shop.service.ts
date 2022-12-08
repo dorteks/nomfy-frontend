@@ -24,9 +24,37 @@ export type CreateShopInputType = {
   youtubeLink: string;
 };
 
+export type UpdateShopInputType = {
+  name: string;
+  logo: string;
+  description: string;
+  website: string;
+  phoneNumber: number;
+  facebookLink: string;
+  instagramLink: string;
+  twitterLink: string;
+  youtubeLink: string;
+};
+
+// sorted
+const createShop = async (input: CreateShopInputType) => {
+  const res = await axios.post("/shops/create", input);
+  console.log("create shop input sent to axios", input);
+  console.log(res.data);
+  return res.data;
+};
+
+// in progress
+const updateShop = async (input: UpdateShopInputType) => {
+  const res = await axios.put(`/shops/edit`, input);
+  console.log("update shop input sent to axios", input);
+  return res.data;
+};
+
+// pending
 // url
 const getOne = async (params: GetShopParams) => {
-  const res = await axios.get(`/${name}`, { params });
+  const res = await axios.get(`/shops/${name}`, { params });
   return res.data;
 };
 
@@ -35,18 +63,7 @@ const getAll = async (params: GetAllShopsParams) => {
   return res.data;
 };
 
-const createShop = async (input: CreateShopInputType) => {
-  const res = await axios.post("/shops/create", input);
-  return res.data;
-};
-
-// url
-const updateShop = async (input: CreateShopInputType) => {
-  const res = await axios.put(`/${name}/edit`, input);
-  return res.data;
-};
-
-// click function to activate or inactivate shops (instead of deleting shops)
+// set up a click function to activate or inactivate shops (instead of deleting shops)
 
 export const ShopService = {
   getAll,

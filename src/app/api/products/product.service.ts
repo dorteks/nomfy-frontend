@@ -1,6 +1,7 @@
 import axios from "../axios";
 
 export type GetProductParams = {
+  sku: string;
   name: string;
 };
 
@@ -11,6 +12,10 @@ export type GetAllProductsParams = {
   perpage?: number;
   sort?: "asc" | "desc";
   sku?: string;
+};
+
+export type DeleteProductParams = {
+  sku: string;
 };
 
 export type CreateProductInputType = {
@@ -24,32 +29,43 @@ export type CreateProductInputType = {
   sku: string;
 };
 
-// url
-const getOne = async (params: GetProductParams) => {
-  const res = await axios.get("`/products/${name}`", { params });
-  return res.data;
+export type UpdateProductInputType = {
+  description: string;
+  featuredImage: string;
+  gallery: string;
+  unit: number;
+  price: number;
+  quantity: number;
+  salesPrice: string;
+  sku: string;
 };
 
+// sorted endpoints
 const getAll = async (params: GetAllProductsParams) => {
   const res = await axios.get("/products", { params });
   return res.data;
 };
 
 const createProduct = async (input: CreateProductInputType) => {
-  const res = await axios.post("/products/create", input);
+  const res = await axios.post(`/products/create`, input);
   console.log("input sent to axios", input);
   return res.data;
 };
-// url
-const updateProduct = async (input: CreateProductInputType) => {
-  // const res = await axios.put(`/products/${name}/edit`, input);
-  const res = await axios.put(`/products/edit`, input);
+
+const updateProduct = async (input: UpdateProductInputType) => {
+  const res = await axios.post(`/products/edit`, input);
+  console.log("input sent to axios", input);
   return res.data;
 };
 
-// url
-const deleteProduct = async (params: GetProductParams) => {
-  const res = await axios.delete(`/products/${name}`);
+// not sorted
+const getOne = async (params: GetProductParams) => {
+  const res = await axios.get("`/products/${name}`", { params });
+  return res.data;
+};
+
+const deleteProduct = async (params: DeleteProductParams) => {
+  const res = await axios.delete(`/products/delete/`, { params });
   return res.data;
 };
 
