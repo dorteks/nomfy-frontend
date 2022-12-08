@@ -1,14 +1,12 @@
-import { Divider, Input, Textarea } from "@chakra-ui/react";
+import { Button, Divider, Input, Textarea } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 import { FiUploadCloud } from "react-icons/fi";
-import { useUpdateShop } from "../../../app/api/shops/shop.mutation";
-import Button from "../../../components/button";
-import Layout from "../../../components/createShop/Layout";
-import ShopCard from "../../../components/createShop/shopCard";
-
-import Header from "../../../components/Header";
+import { useUpdateShop } from "../../../../app/api/shops/shop.mutation";
+import Layout from "../../../../components/createShop/Layout";
+import ShopCard from "../../../../components/createShop/shopCard";
+import Header from "../../../../components/Header";
 
 const EditShop = () => {
   const [name, setName] = React.useState("");
@@ -57,7 +55,7 @@ const EditShop = () => {
 
   React.useEffect(() => {
     if (!isSuccess) return;
-    if (isSuccess) router.push("/pickbazar/shops");
+    if (isSuccess) router.push("/pickbazar/shops/shop");
     // reload page
   }, [isSuccess, router]);
 
