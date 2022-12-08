@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Avatar, Box, IconButton, Text } from "@chakra-ui/react";
 import { Menu, ProSidebarProvider } from "react-pro-sidebar";
 import { DisabledButton } from "../SearchBox";
+import Link from "next/link";
 
 const Side = () => {
   return (
@@ -12,7 +13,7 @@ const Side = () => {
           <Box mb="70px" mt="15px">
             <Box display="flex" justifyContent="center" alignItems={"center"}>
               <Text fontSize="25px" fontWeight="bold">
-                PICKBAZAR
+                <Link href="/pickbazar">PICKBAZAR</Link>
               </Text>
             </Box>
           </Box>

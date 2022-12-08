@@ -67,7 +67,7 @@ const ShopSideBar = () => {
               alignItems={"center"}
             >
               <Text fontSize="25px" fontWeight="bold">
-                PICKBAZAR
+                <Link href="/pickbazar">PICKBAZAR</Link>
               </Text>
               <IconButton aria-label={""} mr="15px">
                 <HamburgerIcon />
