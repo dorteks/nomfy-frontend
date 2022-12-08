@@ -3,9 +3,9 @@ import config from "./config";
 import { getToken, removeToken } from "../utils";
 
 const baseURL = config.server;
-const instance = axios.create({ baseURL: baseURL });
+const axiosClient = axios.create({ baseURL });
 
-instance.interceptors.request.use((config) => {
+axiosClient.interceptors.request.use((config) => {
   // Do something
   const token = getToken();
   const configInstance = { ...config };
@@ -13,7 +13,7 @@ instance.interceptors.request.use((config) => {
   return configInstance;
 });
 
-instance.interceptors.request.use(
+axiosClient.interceptors.request.use(
   (response) => {
     return response;
   },
@@ -31,4 +31,4 @@ instance.interceptors.request.use(
   }
 );
 
-export default instance;
+export default axiosClient;

@@ -10,6 +10,7 @@ import React from "react";
 import { useCreateShop } from "../../../app/api/shops/shop.mutation";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useCreateAddress } from "../../../app/api/address/address.mutation";
 
 const CreateShop = () => {
   const [name, setName] = React.useState("");
@@ -22,7 +23,13 @@ const CreateShop = () => {
   const [twitterLink, setTwitterLink] = React.useState("");
   const [youtubeLink, setYoutubeLink] = React.useState("");
 
-  const mutateValues = {
+  const [country, setCountry] = React.useState("");
+  const [state, setState] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [zipCode, setZipCode] = React.useState("");
+  const [streetAddress, setStreetAddress] = React.useState("");
+
+  const shopValues = {
     name,
     logo,
     description,
@@ -34,9 +41,23 @@ const CreateShop = () => {
     youtubeLink,
   };
 
+  const addressValues = {
+    country,
+    state,
+    city,
+    zipCode,
+    streetAddress,
+  };
+
   const router = useRouter();
 
   const { mutate, isSuccess, isError, data } = useCreateShop();
+  const {
+    mutate: mutateAddress,
+    isSuccess: isSuccessAddress,
+    isError: isErrorAddress,
+    data: dataAddress,
+  } = useCreateAddress();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -45,13 +66,20 @@ const CreateShop = () => {
     console.log("isError", isError);
     console.log("data -", data);
 
-    mutate(mutateValues);
-    console.log("mutateValues - ", mutateValues);
+    console.log("isSuccess", isSuccessAddress);
+    console.log("isError", isErrorAddress);
+    console.log("data -", dataAddress);
+
+    mutate(shopValues);
+    console.log("shopValues - ", shopValues);
+
+    mutateAddress(addressValues);
+    console.log("addressValues - ", addressValues);
 
     // upload image to backend
     const fd = new FormData();
     fd.append("image", logo);
-    axios.post("products/create", fd).then((res) => console.log(res));
+    // axios.post("shops/create", fd).then((res) => console.log(res));
     console.log("image uploaded here");
     console.log(fd.get("image"));
   };
@@ -79,6 +107,7 @@ const CreateShop = () => {
           icon={<FiUploadCloud size="30px" />}
           text1=" Upload an image or drag and drop"
           text2="PNG, JPG"
+          label1={undefined}
         />
         <Divider />
         {/* <ShopCard
@@ -106,6 +135,7 @@ const CreateShop = () => {
               onChange={(e) => setDescription(e.target.value)}
             />
           }
+          label1={undefined}
         />
         <Divider />
         <ShopCard
@@ -115,16 +145,43 @@ const CreateShop = () => {
           input2={<Input placeholder="Account Holder Email" />}
           input3={<Input placeholder="Bank Name" />}
           input4={<Input placeholder="Account Number" />}
+          label1={undefined}
         />
         <Divider />
         <ShopCard
           title="Shop Address"
           subtitle="Add your physical shop address from here"
-          input1={<Input placeholder="Country" />}
-          input2={<Input placeholder="City" />}
-          input3={<Input placeholder="State" />}
-          input4={<Input placeholder="Zip" />}
-          textarea={<Textarea placeholder="Street Address" />}
+          input1={
+            <Input
+              placeholder="Country"
+              onChange={(e) => setCountry(e.target.value)}
+            />
+          }
+          input2={
+            <Input
+              placeholder="City"
+              onChange={(e) => setCity(e.target.value)}
+            />
+          }
+          input3={
+            <Input
+              placeholder="State"
+              onChange={(e) => setState(e.target.value)}
+            />
+          }
+          input4={
+            <Input
+              placeholder="ZipCode"
+              onChange={(e) => setZipCode(e.target.value)}
+            />
+          }
+          textarea={
+            <Textarea
+              placeholder="Street Address"
+              onChange={(e) => setStreetAddress(e.target.value)}
+            />
+          }
+          label1={undefined}
         />
         <Divider />
         <ShopCard
@@ -144,6 +201,7 @@ const CreateShop = () => {
             />
           }
           input4={<Button>Add New Social Profile</Button>}
+          label1={undefined}
         />
         <Divider />
         <Button type="submit" mt="25px" mb="100px">

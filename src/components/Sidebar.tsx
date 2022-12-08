@@ -34,25 +34,25 @@ type Props = {
   href: string;
 };
 
-const Item = ({ title, icon, setSelected, selected, href }: Props) => {
-  return (
-    <Link href={href}>
-      <MenuItem
-        active={selected === title}
-        onClick={() => setSelected(title)}
-        icon={icon}
-      >
-        <Text fontSize="17px" fontWeight="hairline">
-          {title}
-        </Text>
-      </MenuItem>
-    </Link>
-  );
-};
-
 const Sidebar = () => {
   const [isCollapsed, setIsCollapesed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const Item = ({ title, icon, setSelected, selected, href }: Props) => {
+    return (
+      <Link href={href}>
+        <MenuItem
+          active={selected === title}
+          onClick={() => setSelected(title)}
+          icon={icon}
+        >
+          <Text fontSize="17px" fontWeight="hairline">
+            {title}
+          </Text>
+        </MenuItem>
+      </Link>
+    );
+  };
 
   return (
     <ProSidebarProvider>

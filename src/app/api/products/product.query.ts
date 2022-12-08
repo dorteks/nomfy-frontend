@@ -2,6 +2,7 @@ import {
   ProductService,
   GetProductParams,
   GetAllProductsParams,
+  DeleteProductParams,
 } from "./product.service";
 import { useQuery } from "@tanstack/react-query";
 
@@ -19,3 +20,9 @@ export const useGetProduct = (params: GetProductParams) => {
     ProductService.getOne(params);
   });
 };
+
+// export const useDeleteProduct = (params: DeleteProductParams) => {
+//   return useQuery(["deleteProduct", params], () =>
+//     ProductService.deleteProduct(params)
+//   );
+// };

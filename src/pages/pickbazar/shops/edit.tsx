@@ -80,6 +80,26 @@ const EditShop = () => {
       <Divider />
       <form onSubmit={handleSubmit}>
         <ShopCard
+          title="Logo"
+          subtitle="Upload your shop logo from here"
+          input1={<Input type="file" onChange={handleSelectFile} />}
+          icon={<FiUploadCloud size="30px" />}
+          text1=" Upload an image or drag and drop"
+          text2="PNG, JPG"
+          label1={undefined}
+        />
+        <Divider />
+        <ShopCard
+          title="Cover Image"
+          subtitle="Upload your shop cover image from here"
+          subtitle2="Dimension of the cover image should be 1170 x 435px"
+          input1={<Input type="file" onChange={handleSelectFile} />}
+          icon={<FiUploadCloud size="30px" />}
+          text1=" Upload an image or drag and drop"
+          text2="PNG, JPG"
+        />
+        <Divider />
+        <ShopCard
           title="Basic Info"
           subtitle="Add some basic info about your shop from here"
           input1={
@@ -106,9 +126,57 @@ const EditShop = () => {
         />
 
         <Divider />
+        <ShopCard
+          title="Shop Address"
+          subtitle="Add your physical shop address from here"
+          label1={<>Country</>}
+          input1={
+            <Input
+            // onChange={(e) => setCountry(e.target.value)}
+            />
+          }
+          label2={<>City</>}
+          input2={
+            <Input
+            // onChange={(e) => setCity(e.target.value)}
+            />
+          }
+          label3={<>State</>}
+          input3={
+            <Input
+            // onChange={(e) => setState(e.target.value)}
+            />
+          }
+          label4={<>ZIP</>}
+          input4={
+            <Input
+            // onChange={(e) => setZipCode(e.target.value)}
+            />
+          }
+          label9={<>Street Address</>}
+          textarea={
+            <Textarea
+            // onChange={(e) => setStreetAddress(e.target.value)}
+            />
+          }
+        />
+
+        <Divider />
+        <ShopCard
+          title="Shop Settings"
+          subtitle="Add your shop settings information from here"
+          label1={<>Set Locaton from Map</>}
+          input1={<Input />}
+          label2={<>Contact Number</>}
+          input2={<Input onChange={(e) => setPhonenumber(e.target.value)} />}
+          label3={<>Website</>}
+          input3={<Input onChange={(e) => setWebsite(e.target.value)} />}
+          input4={<Button>Add New Social Profile</Button>}
+        />
+        <Divider />
 
         <Button type="submit" mt="25px" mb="100px">
-          Add Shop
+          Update
         </Button>
       </form>
     </Layout>

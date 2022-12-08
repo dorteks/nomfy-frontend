@@ -60,7 +60,7 @@ const ShopsTable = () => {
                   </Td>
                   <Td>
                     <CloseIcon mr="30px" boxSize="15px" color="red.500" />
-                    <Link href="/shops/edit">
+                    <Link href="shops/shop">
                       <ViewIcon boxSize="20px" color="gray.500" />
                     </Link>
                   </Td>

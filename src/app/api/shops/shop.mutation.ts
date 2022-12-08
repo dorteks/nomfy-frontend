@@ -6,7 +6,7 @@ export const useCreateShop = () => {
   const client = useQueryClient();
   return useMutation((input: any) => ShopService.createShop(input), {
     onSuccess: (data) => {
-      client.setQueryData(["createshop"], data);
+      client.setQueryData(["createshop"], data.data);
     },
   });
 };

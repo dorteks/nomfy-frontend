@@ -22,7 +22,7 @@ const Side = () => {
               <Avatar
                 name=""
                 boxSize="130px"
-                src="../../public/assets/user.png"
+                src="/assets/user.png"
                 borderRadius="full"
                 mb="20px"
               />

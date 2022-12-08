@@ -40,6 +40,7 @@ export type UpdateShopInputType = {
 const createShop = async (input: CreateShopInputType) => {
   const res = await axios.post("/shops/create", input);
   console.log("create shop input sent to axios", input);
+  console.log(res.data);
   return res.data;
 };
 

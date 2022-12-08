@@ -43,7 +43,6 @@ const EditProduct = () => {
     console.log("data", data);
 
     mutate(mutateValues);
-    console.log("mutateValues", mutateValues);
   };
 
   const handleSelectFile = (event: any) => {

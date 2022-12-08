@@ -1,6 +1,7 @@
 import axios from "../axios";
 
 export type GetProductParams = {
+  sku: string;
   name: string;
 };
 
@@ -11,6 +12,10 @@ export type GetAllProductsParams = {
   perpage?: number;
   sort?: "asc" | "desc";
   sku?: string;
+};
+
+export type DeleteProductParams = {
+  sku: string;
 };
 
 export type CreateProductInputType = {
@@ -42,7 +47,7 @@ const getAll = async (params: GetAllProductsParams) => {
 };
 
 const createProduct = async (input: CreateProductInputType) => {
-  const res = await axios.post("/products/create", input);
+  const res = await axios.post(`/products/create`, input);
   console.log("input sent to axios", input);
   return res.data;
 };
@@ -54,15 +59,13 @@ const updateProduct = async (input: UpdateProductInputType) => {
 };
 
 // not sorted
-// url
 const getOne = async (params: GetProductParams) => {
   const res = await axios.get("`/products/${name}`", { params });
   return res.data;
 };
 
-// url
-const deleteProduct = async (params: GetProductParams) => {
-  const res = await axios.delete(`/products/${name}`);
+const deleteProduct = async (params: DeleteProductParams) => {
+  const res = await axios.delete(`/products/delete/`, { params });
   return res.data;
 };
 

@@ -87,7 +87,7 @@ export const AddGroupButton = () => {
   );
 };
 
-const SearchBox = () => {
+export const SearchBox = () => {
   return (
     <Box display="flex" borderRadius="3px" alignContent="center">
       <Input placeholder="Search" />
@@ -95,5 +95,3 @@ const SearchBox = () => {
     </Box>
   );
 };
-
-export default SearchBox;

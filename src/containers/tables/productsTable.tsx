@@ -10,45 +10,43 @@ import {
   Tabs,
   TabList,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useGetAllProducts } from "../../app/api/products/product.query";
 import axios from "axios";
+import { GetProductParams } from "../../app/api/products/product.service";
+import Button from "../../components/button";
+
+export type DeleteProductParams = {
+  sku: string;
+};
 
 const ProductsTable = () => {
-  const { data, isLoading, error } = useGetAllProducts({});
+  const { data, isLoading, error, isSuccess } = useGetAllProducts({});
   console.log("data", data);
   console.log("isLoading", isLoading);
   console.log("error", error);
+  console.log("isSuccess", isSuccess);
 
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [data, setData] = useState([]);
-  // const [error, setError] = useState("");
+  const handleDeleteProduct = async (params: DeleteProductParams, e: any) => {
+    e.preventDefault();
 
-  // React.useEffect(() => {
-  //   axios
-  //     .get("http://localhost:4001/products")
-  //     .then((res) => {
-  //       setData(res.data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       setError(error.message);
-  //       setIsLoading(false);
-  //     });
-  // }, []);
-
-  // if (isLoading) {
-  //   return <h1>Loading......</h1>;
-  // }
-  // console.log("fetching data");
-
-  // if (error) {
-  //   return <h2>{error}</h2>;
-  // }
-  // console.log("errror fetching data");
+    if (window.confirm("Are you sure you want to delete?")) {
+      const res = await axios
+        .delete(`/products/delete/`)
+        .then((response) => {
+          console.log("response data:::::", response.data);
+          window.alert("Deleted successfully");
+        })
+        .catch((error) => {
+          console.log("errpor :::::", error.message);
+          console.error("There was an error!", error);
+        });
+      return res;
+    }
+  };
 
   return (
     <Box>
@@ -89,8 +87,11 @@ const ProductsTable = () => {
                     </Tabs>
                   </Td>
                   <Td>
-                    {" "}
-                    <DeleteIcon mr="20px" boxSize="20px" color="red.500" />
+                    <Button
+                      onClick={(e) => handleDeleteProduct(product.sku, e)}
+                    >
+                      <DeleteIcon mr="20px" boxSize="20px" color="red.500" />
+                    </Button>
                     <Link href="products/edit">
                       <EditIcon boxSize="20px" color="gray.500" />
                     </Link>
