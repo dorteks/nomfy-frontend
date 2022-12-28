@@ -1,9 +1,5 @@
 import axios from "../axios";
 
-export type GetShopParams = {
-  name: string;
-};
-
 export type GetAllShopsParams = {
   page?: number;
   query?: string;
@@ -44,22 +40,19 @@ const createShop = async (input: CreateShopInputType) => {
   return res.data;
 };
 
-// in progress
 const updateShop = async (input: UpdateShopInputType) => {
   const res = await axios.put(`/shops/edit`, input);
   console.log("update shop input sent to axios", input);
   return res.data;
 };
 
-// pending
-// url
-const getOne = async (params: GetShopParams) => {
-  const res = await axios.get(`/shops/${name}`, { params });
+const getAll = async (params: GetAllShopsParams) => {
+  const res = await axios.get("/shops", { params });
   return res.data;
 };
 
-const getAll = async (params: GetAllShopsParams) => {
-  const res = await axios.get("/shops", { params });
+const getOne = async (shopId: number) => {
+  const res = await axios.get(`/shops/${shopId}`);
   return res.data;
 };
 

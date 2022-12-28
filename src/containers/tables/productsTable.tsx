@@ -16,28 +16,28 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useGetAllProducts } from "../../app/api/products/product.query";
 import axios from "axios";
-import { GetProductParams } from "../../app/api/products/product.service";
-import Button from "../../components/button";
 
 export type DeleteProductParams = {
-  sku: string;
+  productId: string;
 };
 
 const ProductsTable = () => {
+  // get all products
   const { data, isLoading, error, isSuccess } = useGetAllProducts({});
   console.log("data", data);
   console.log("isLoading", isLoading);
   console.log("error", error);
   console.log("isSuccess", isSuccess);
 
-  const handleDeleteProduct = async (params: DeleteProductParams, e: any) => {
-    e.preventDefault();
-
+  // delete a product
+  const handleDeleteProduct = async (params: DeleteProductParams) => {
+    console.log("Clicked");
     if (window.confirm("Are you sure you want to delete?")) {
       const res = await axios
-        .delete(`/products/delete/`)
-        .then((response) => {
-          console.log("response data:::::", response.data);
+        .delete(`http://localhost:4001/products/${params}`)
+        .then(() => {
+          console.log("response data:::::");
+          window.location.reload();
           window.alert("Deleted successfully");
         })
         .catch((error) => {
@@ -57,8 +57,8 @@ const ProductsTable = () => {
             <Tr>
               <Th>Image</Th>
               <Th>Name</Th>
-              <Th>Gallery</Th>
-              <Th>Unit</Th>
+              {/* <Th>Gallery</Th> */}
+              {/* <Th>Unit</Th> */}
               <Th>Price/Unit</Th>
               <Th>Quantity</Th>
               <Th>Sales Price</Th>
@@ -72,8 +72,8 @@ const ProductsTable = () => {
                 <Tr key={product.sku}>
                   <Td>{product.featuredImage.featuredImage}</Td>
                   <Td>{product.description} </Td>
-                  <Td>{product.gallery} </Td>
-                  <Td>{product.unit} </Td>
+                  {/* <Td>{product.gallery} </Td> */}
+                  {/* <Td>{product.unit} </Td> */}
                   <Td>{product.price} </Td>
                   <Td>{product.quantity}</Td>
                   <Td>{product.salesPrice}</Td>
@@ -87,11 +87,14 @@ const ProductsTable = () => {
                     </Tabs>
                   </Td>
                   <Td>
-                    <Button
-                      onClick={(e) => handleDeleteProduct(product.sku, e)}
-                    >
-                      <DeleteIcon mr="20px" boxSize="20px" color="red.500" />
-                    </Button>
+                    <DeleteIcon
+                      onClick={() => handleDeleteProduct(product.id)}
+                      bgColor="white"
+                      mr="20px"
+                      boxSize="20px"
+                      color="red.500"
+                    />
+
                     <Link href="products/edit">
                       <EditIcon boxSize="20px" color="gray.500" />
                     </Link>

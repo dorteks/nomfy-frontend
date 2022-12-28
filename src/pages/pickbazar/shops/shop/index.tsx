@@ -8,20 +8,29 @@ import ShopTransactions from "../../../../components/displayShop/shopTransaction
 const Shop = () => {
   return (
     <ShopLayout>
-      <Box mt="20px">
-        <Grid templateColumns="repeat(2, 1fr)" gap={3} p={1} mr="10px">
-          <GridItem w="50%" h="auto" bg="gray.200" borderRadius="10px">
+      <Box>
+        <Grid
+          mr="20px"
+          mt="20px"
+          h="600px"
+          width="1600px"
+          templateRows="repeat(1, 1fr)"
+          templateColumns="repeat(8, 1fr)"
+          gap={5}
+          p={1}
+        >
+          <GridItem rowSpan={1} colSpan={2} bg="gray.200" borderRadius="10px">
             <ShopDetails />
           </GridItem>
           <GridItem
-            w="145%"
-            h="600px"
+            rowSpan={1}
+            colSpan={6}
+            ml="10px"
             bg="gray.200"
-            ml="-390px"
             borderRadius="10px"
           >
             <ShopImage />
-          </GridItem>{" "}
+          </GridItem>
         </Grid>
       </Box>
       <Box mt="20px">

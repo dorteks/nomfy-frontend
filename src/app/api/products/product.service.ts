@@ -14,10 +14,6 @@ export type GetAllProductsParams = {
   sku?: string;
 };
 
-export type DeleteProductParams = {
-  sku: string;
-};
-
 export type CreateProductInputType = {
   description: string;
   featuredImage: string;
@@ -59,13 +55,8 @@ const updateProduct = async (input: UpdateProductInputType) => {
 };
 
 // not sorted
-const getOne = async (params: GetProductParams) => {
-  const res = await axios.get("`/products/${name}`", { params });
-  return res.data;
-};
-
-const deleteProduct = async (params: DeleteProductParams) => {
-  const res = await axios.delete(`/products/delete/`, { params });
+const getOne = async (productId: any) => {
+  const res = await axios.get(`/products/${productId}`);
   return res.data;
 };
 
@@ -73,6 +64,5 @@ export const ProductService = {
   getAll,
   createProduct,
   updateProduct,
-  deleteProduct,
   getOne,
 };
