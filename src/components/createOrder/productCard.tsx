@@ -3,28 +3,49 @@ import { Card, CardBody, CardFooter } from "@chakra-ui/card";
 import { Stack, Box, Image, Text, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsClipboardCheck } from "react-icons/bs";
-import { useGetAllProducts } from "../../app/api/products/product.query";
+import { useBetween } from "use-between";
 
-const TemplateCard = () => {
+type Props = {
+  price: number;
+  name: string;
+  src: string;
+  count: number;
+
+  disabled: boolean;
+};
+
+export const useSharableState = () => {
   const Add = 0;
-  const price = 1.6;
-  const priceDP = price.toFixed(2);
-
   const [count, setCount] = useState(Add);
-  const [amount, setAmount] = useState(0);
   const [item, setItem] = useState(0);
+  const [amount, setAmount] = useState(0);
+  console.log(count, ">>>>>newcount");
 
-  const handleAdd = () => {
-    setCount(count + 1);
-    setAmount(amount + price);
-    setItem(item + 1);
-  };
+  const price = 4.0;
 
   const handleSubtract = () => {
     setCount(count - 1);
-    setAmount(amount - price);
     setItem(item - 1);
+    setAmount(amount - price);
   };
+  const handleAdd = () => {
+    setCount(count + 1);
+    setItem(item + 1);
+    setAmount(amount + price);
+  };
+
+  return {
+    count,
+    item,
+    amount,
+    setItem,
+    handleAdd,
+    handleSubtract,
+  };
+};
+
+const ProductCard = ({ price, name, src, disabled, count }: Props) => {
+  const { handleAdd, handleSubtract } = useBetween(useSharableState);
 
   return (
     <>
@@ -37,18 +58,13 @@ const TemplateCard = () => {
           borderRadius="10px"
         >
           <CardBody>
-            <Image
-              src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F1%2FApples.jpg&w=1920&q=75"
-              alt="apples"
-              borderRadius="lg"
-              boxSize="225px"
-            />
+            <Image src={src} alt={name} borderRadius="lg" boxSize="225px" />
             <Stack mt="6" spacing="3">
               <Text color="black.600" fontSize="16px">
-                $ {priceDP}
+                $ {price}
               </Text>
               <Text color="gray.400" fontSize="15px" fontWeight="hairline">
-                Apple
+                {name}
               </Text>
             </Stack>
           </CardBody>
@@ -69,7 +85,7 @@ const TemplateCard = () => {
             >
               <Stack direction="row" spacing={12}>
                 <Box>
-                  <Button onClick={handleSubtract} disabled={count === 0}>
+                  <Button onClick={handleSubtract} disabled={disabled}>
                     <MinusIcon />
                   </Button>
                 </Box>
@@ -84,29 +100,8 @@ const TemplateCard = () => {
           </CardFooter>
         </Card>
       </Box>
-      {/* <Box
-        width="130px"
-        h="110px"
-        bgColor="gray.300"
-        borderRadius="10px"
-        position="fixed"
-        mt="50px"
-        display="flex"
-        justifySelf="end"
-        alignSelf="end"
-      >
-        <Stack direction="column">
-          <Stack direction="row" mb="5px" p="10px">
-            <BsClipboardCheck />
-            <Text>{item} Items</Text>
-          </Stack>
-          <Box pl="25px">
-            <Button>$ {amount}</Button>
-          </Box>
-        </Stack>
-      </Box> */}
     </>
   );
 };
 
-export default TemplateCard;
+export default ProductCard;

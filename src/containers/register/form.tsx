@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useCreateUser } from "../../app/api/auth/auth.mutation";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   firstName: yup
@@ -69,10 +70,17 @@ const Register = () => {
     createUser({ firstName, lastName, email, password, role });
   };
 
+  const router = useRouter();
+
+  // React.useEffect(() => {
+  //   if (!isSuccess) return;
+  //   setStep("next");
+  // }, [isSuccess, setStep]);
+
   React.useEffect(() => {
     if (!isSuccess) return;
-    setStep("next");
-  }, [isSuccess, setStep]);
+    if (isSuccess) router.push("/pickbazar/");
+  }, [isSuccess, router]);
 
   return (
     <>

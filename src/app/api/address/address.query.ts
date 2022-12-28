@@ -5,16 +5,17 @@ import {
 } from "./address.service";
 import { useQuery } from "@tanstack/react-query";
 
-export const GetAllAddress = (params: GetAllAddressParams) => {
+export const useGetAllAddress = (params: GetAllAddressParams) => {
   return useQuery(["getAll", params], () => {
     const res = AddressService.getAll(params);
     return res;
   });
 };
 
-export const GetOneAddress = (params: GetOneAddressParams) => {
-  return useQuery(["getOne", params], () => {
-    const res = AddressService.getOne(params);
+export const useGetOneAddress = (addressId: number) => {
+  console.log("addressId:::", addressId);
+  return useQuery(["getAddress", addressId], () => {
+    const res = AddressService.getOne(addressId);
     return res;
   });
 };

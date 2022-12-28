@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { GetAllShopsParams, GetShopParams, ShopService } from "./shop.service";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { GetAllShopsParams, ShopService } from "./shop.service";
 
 // sorted
 export const useGetAllShops = (params: GetAllShopsParams) => {
@@ -10,9 +10,10 @@ export const useGetAllShops = (params: GetAllShopsParams) => {
 };
 
 // pending
-export const useGetOneShop = (params: GetShopParams) => {
-  return useQuery(["getShop", params], () => {
-    const res = ShopService.getOne(params);
+export const useGetOneShop = (shopId: number) => {
+  console.log("shopId:::", shopId);
+  return useQuery(["getShop", shopId], () => {
+    const res = ShopService.getOne(shopId);
     return res;
   });
 };

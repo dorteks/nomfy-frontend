@@ -1,9 +1,4 @@
-import {
-  ProductService,
-  GetProductParams,
-  GetAllProductsParams,
-  DeleteProductParams,
-} from "./product.service";
+import { ProductService, GetAllProductsParams } from "./product.service";
 import { useQuery } from "@tanstack/react-query";
 
 // sorted
@@ -15,14 +10,10 @@ export const useGetAllProducts = (params: GetAllProductsParams) => {
 };
 
 // not sorted
-export const useGetProduct = (params: GetProductParams) => {
-  return useQuery(["getProducts", params], () => {
-    ProductService.getOne(params);
+export const useGetProduct = (productId: number) => {
+  console.log("productId:::", productId);
+  return useQuery(["getProduct", productId], () => {
+    const res = ProductService.getOne(productId);
+    return res;
   });
 };
-
-// export const useDeleteProduct = (params: DeleteProductParams) => {
-//   return useQuery(["deleteProduct", params], () =>
-//     ProductService.deleteProduct(params)
-//   );
-// };

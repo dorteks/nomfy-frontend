@@ -1,12 +1,33 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
 import { Avatar, Box, Link, MenuItem, Stack, Text } from "@chakra-ui/react";
-import { Props } from "next/script";
 import { GoLocation } from "react-icons/go";
 import React from "react";
 import { BsTelephone } from "react-icons/bs";
 import Button from "../button";
+import { useParams } from "react-router-dom";
+import { useGetOneShop } from "../../app/api/shops/shop.query";
 
-const ShopDetails = () => {
+const ShopDetails = (req: any) => {
+  const shopId = 8;
+
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    data: shopData,
+  } = useGetOneShop(shopId);
+
+  console.log("data", shopData);
+
+  {
+    isLoading && <h1>Loading...</h1>;
+  }
+  if (isError) {
+    console.log(isError, "-isError");
+  }
+  if (isSuccess) {
+    console.log("isSuccess:::", isSuccess);
+  }
+
   return (
     <Box mt="40px" display="flex" justifyContent="center" alignItems="center">
       <Stack direction="column">
@@ -19,7 +40,7 @@ const ShopDetails = () => {
             mb="10px"
           />
           <Text fontSize="25px" fontWeight="bold">
-            Furniture Shop
+            {shopData?.name}
           </Text>
           <Text
             p="3px 45px"
@@ -27,9 +48,7 @@ const ShopDetails = () => {
             fontSize="15px"
             fontWeight="hairline"
           >
-            The furniture shop is the best shop around the city. This is being
-            run under the store owner and our aim is to provide quality product
-            and hassle free customer service.
+            {shopData?.description}
           </Text>
         </Stack>
         <Stack mr="25px">
@@ -38,23 +57,19 @@ const ShopDetails = () => {
               <GoLocation />
             </Box>
             <Text fontSize="15px" fontWeight="hairline" mt="10px" ml="20px">
-              588 Finwood Road
+              {shopData?.address?.[0].streetAddress}
             </Text>
             <Text fontSize="15px" fontWeight="hairline" ml="20px">
-              {" "}
-              East Dover
+              {shopData?.address?.[0].city}
             </Text>
             <Text fontSize="15px" fontWeight="hairline" ml="20px">
-              {" "}
-              New Jersey
+              {shopData?.address?.[0].state}
             </Text>
             <Text fontSize="15px" fontWeight="hairline" ml="20px">
-              {" "}
-              08753
+              {shopData?.address?.[0].zipcode}
             </Text>
             <Text fontSize="15px" fontWeight="hairline" mb="10px" ml="20px">
-              {" "}
-              USA
+              {shopData?.address?.[0].country}
             </Text>
           </Box>
           <Box>
@@ -64,7 +79,7 @@ const ShopDetails = () => {
 
             <Text fontSize="15px" fontWeight="hairline" mt="10px" ml="20px">
               {" "}
-              21342121221
+              {shopData?.phoneNumber}
             </Text>
             <Stack alignItems="center" mt="10px" mb="25px">
               <Button>Visit Shop</Button>

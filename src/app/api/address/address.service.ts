@@ -44,8 +44,8 @@ const getAll = async (params: GetAllAddressParams) => {
   return res.data;
 };
 
-const getOne = async (params: GetOneAddressParams) => {
-  const res = await axios.get("/address/{}", { params });
+const getOne = async (addressId: number) => {
+  const res = await axios.get(`/address/${addressId}`);
   return res.data;
 };
 

@@ -6,8 +6,21 @@ import {
   BsCurrencyDollar,
   BsPercent,
 } from "react-icons/bs";
+import { GiConsoleController } from "react-icons/gi";
+import { useParams } from "react-router-dom";
+import { useGetProduct } from "../../app/api/products/product.query";
 
 const ShopTransactions = () => {
+  // const productId =  {productData.id === parseInt(productId)}
+
+  const { data: productData, isSuccess } = useGetProduct(11);
+
+  console.log("productData", productData);
+
+  if (isSuccess) {
+    console.log("isSuccess", isSuccess);
+  }
+
   return (
     <Box>
       <Stack direction="row" mt="20px" mr="60px" spacing={100}>
@@ -28,7 +41,7 @@ const ShopTransactions = () => {
 
             <Box p="12px 16px">
               <Text fontSize="18px" mb="5px">
-                55
+                {productData?.quantity}
               </Text>
               <Text fontSize="14px">Total Products</Text>
             </Box>

@@ -19,18 +19,17 @@ const ProfileMenu = ({ boxSize = "auto", ml = "auto" }: Props) => (
       <Avatar boxSize={boxSize} ml={ml} name="P P" />
     </MenuButton>
     <MenuList fontSize={12}>
-      <Link href="/pickbazar/profile-update">
-        <MenuItem>
-          <Box justifyContent="space-between">
-            <Stack>
-              <Text fontSize="15px" fontWeight="bold">
-                Customer
-              </Text>
-              <Text fontSize="13px">customer@demo.com</Text>
-            </Stack>
-          </Box>
-        </MenuItem>
-      </Link>
+      <MenuItem>
+        <Box justifyContent="space-between">
+          <Stack>
+            <Text fontSize="15px" fontWeight="bold">
+              Customer
+            </Text>
+            <Text fontSize="13px">customer@demo.com</Text>
+          </Stack>
+        </Box>
+      </MenuItem>
+
       <Link href="/pickbazar/profile-update">
         <MenuItem h="52px">
           <Text fontSize="14px" fontWeight="bold">

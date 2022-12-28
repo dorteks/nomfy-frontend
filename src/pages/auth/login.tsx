@@ -84,9 +84,12 @@
 
 // export default Login;
 
-import { useRouter } from "next/router";
 import React from "react";
+import { useRouter } from "next/router";
+import { Box, Stack } from "@chakra-ui/react";
 import { useLogin } from "../../app/api/auth/auth.mutation";
+import Button from "../../components/button";
+import Input from "../../components/input";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -107,10 +110,15 @@ const Login = () => {
     mutate({ email, password });
   };
 
+  React.useEffect(() => {
+    if (!isSuccess) return;
+    if (isSuccess) router.push("/pickbazar/");
+  }, [isSuccess, router]);
+
   // avaialable users
-  // dotex245@gmail.com     dot123
-  // ayo@gmail.com          ayo123
-  // ayoa@gmail.com         ayo123
+  // obiJ@gmail.com     obi123
+  // oluJ@gmail.com     olu123
+  // adeJ@gmail.com     ade123
 
   // React.useEffect(() => {
   //   if (!isSuccess) return;
@@ -120,21 +128,38 @@ const Login = () => {
   // }, [isSuccess, data?.role, router]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignContent="center"
+      mt="150px"
+      ml="350px"
+      p="2px"
+      backgroundColor="yellow.100"
+      h="523px"
+      w="420px"
+    >
+      <Stack alignItems="center" justifyContent="center" mt="40px">
+        <form onSubmit={handleSubmit}>
+          <Stack mb={8} spacing={4}>
+            <input
+              type="email"
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Stack>
+
+          <Button alignItems="center" type="submit">
+            Login
+          </Button>
+        </form>
+      </Stack>
+    </Box>
   );
 };
 

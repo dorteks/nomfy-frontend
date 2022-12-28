@@ -1,0 +1,242 @@
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { Card, CardBody, CardFooter } from "@chakra-ui/card";
+import { Stack, Box, Image, Text, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { BsClipboardCheck } from "react-icons/bs";
+import { useBetween } from "use-between";
+
+type Props = {
+  price: number;
+  name: string;
+  src: string;
+  count: number;
+  onIncrement: React.MouseEventHandler;
+  onDecrement: React.MouseEventHandler;
+  disabled: boolean;
+};
+
+// export const useSharableState = () => {
+//   const [count, setCount] = useState(0);
+//   const [amount, setAmount] = useState(0);
+//   const [item, setItem] = useState(0);
+
+//   const handleSubtract = () => {
+//     setCount(count - 1);
+//     setItem(item - 1);
+//   };
+//   const handleAdd = () => {
+//     setCount(count + 1);
+//     setItem(item + 1);
+//   };
+
+//   return {
+//     count,
+//     setCount,
+//     amount,
+//     setAmount,
+//     item,
+//     setItem,
+//     handleAdd,
+//     handleSubtract,
+//   };
+// };
+
+const ProductCard = ({
+  price,
+  name,
+  src,
+  onIncrement,
+  onDecrement,
+  disabled,
+  count,
+}: Props) => {
+  return (
+    <>
+      <Box>
+        <Card
+          w="260px"
+          p={5}
+          ml="1px"
+          backgroundColor="white"
+          borderRadius="10px"
+        >
+          <CardBody>
+            <Image src={src} alt={name} borderRadius="lg" boxSize="225px" />
+            <Stack mt="6" spacing="3">
+              <Text color="black.600" fontSize="16px">
+                $ {price}
+              </Text>
+              <Text color="gray.400" fontSize="15px" fontWeight="hairline">
+                {name}
+              </Text>
+            </Stack>
+          </CardBody>
+          <CardFooter
+            display="flex"
+            alignSelf="center"
+            justifyContent="space-between"
+            alignContent="center"
+          >
+            <Box
+              mt="10px"
+              mr="8px"
+              color="gray.400"
+              bgColor="gray.200"
+              width="200px"
+              height="40px"
+              borderRadius="5px"
+            >
+              <Stack direction="row" spacing={12}>
+                <Box>
+                  <Button
+                    onClick={(e) => {
+                      onDecrement(e);
+                    }}
+                    disabled={disabled}
+                  >
+                    <MinusIcon />
+                  </Button>
+                </Box>
+                <Box pt="8px">{count}</Box>
+                <Box>
+                  <Button
+                    onClick={(e) => {
+                      onIncrement(e);
+                    }}
+                  >
+                    <AddIcon />
+                  </Button>
+                </Box>
+              </Stack>
+            </Box>
+          </CardFooter>
+        </Card>
+      </Box>
+    </>
+  );
+};
+
+export default ProductCard;
+// productCard.tsx
+
+
+
+import { Box, Button, Grid, GridItem, Stack, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { BsClipboardCheck } from "react-icons/bs";
+import { useBetween } from "use-between";
+import ProductCard from "./productCard";
+import UpdateItem from "./updateItem";
+
+export const useSharableState = () => {
+  const Add = 0;
+  const [count, setCount] = useState(Add);
+  const [item, setItem] = useState(0);
+  const [amount, setAmount] = useState(0);
+  console.log(count, ">>>>>newcount");
+
+  const price = 4.0;
+
+  const handleSubtract = () => {
+    setCount(count - 1);
+    setItem(item - 1);
+    setAmount(amount - price);
+  };
+  const handleAdd = () => {
+    setCount(count + 1);
+    setItem(item + 1);
+    setAmount(amount + price);
+  };
+
+  return {
+    count,
+    item,
+    amount,
+    setItem,
+    handleAdd,
+    handleSubtract,
+  };
+};
+
+const OrderCard = () => {
+  const price1 = 4.0;
+  const price2 = 2.35;
+  const { count, handleAdd, handleSubtract } = useBetween(useSharableState);
+
+  return (
+    <Box>
+      <Grid templateColumns="repeat(6, 1fr)" gap={3} p={1} mr="10px">
+        <GridItem w="98%" h="10" bg="white">
+          <ProductCard
+            src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F7%2FCorn.jpg&w=1920&q=75"
+            price={price1}
+            name="Swwet Corn"
+            count={count}
+            onIncrement={handleAdd}
+            onDecrement={handleSubtract}
+            disabled={count === 0}
+          />
+        </GridItem>
+        <GridItem w="98%" h="10" bg="white">
+          <ProductCard
+            src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F1%2FApples.jpg&w=1920&q=75"
+            price={price2}
+            name="Apple"
+            count={count}
+            onIncrement={handleAdd}
+            onDecrement={handleSubtract}
+            disabled={count === 0}
+          />
+        </GridItem>{" "}
+        {/* <GridItem w="98%" h="10" bg="white">
+          <ProductCard
+            src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F14%2FMangoes.jpg&w=1920&q=75"
+            price="2.50"
+            name="Mango"
+            count={count}
+            onIncrement={handleAdd}
+            onDecrement={handleSubtract}
+            disabled={count === 0}
+          />
+        </GridItem>{" "}
+        <GridItem w="98%" h="10" bg="white">
+          <ProductCard
+            src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F13%2FGreenLimes.jpg&w=1920&q=75"
+            price="1.50"
+            name="Lime"
+            count={count}
+            onIncrement={handleAdd}
+            onDecrement={handleSubtract}
+            disabled={count === 0}
+          />
+        </GridItem>{" "}
+        <GridItem w="98%" h="10" bg="white">
+          <ProductCard
+            src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F16%2Fpears.jpg&w=1920&q=75"
+            price="3.50"
+            name="Pears"
+            count={count}
+            onIncrement={handleAdd}
+            onDecrement={handleSubtract}
+            disabled={count === 0}
+          />
+        </GridItem>{" "}
+        <GridItem w="98%" h="10" bg="white">
+          <ProductCard
+            src="https://pickbazar-react-admin-rest.vercel.app/_next/image?url=https%3A%2F%2Fpickbazarlaravel.s3.ap-southeast-1.amazonaws.com%2F19%2Fstrawberry.jpg&w=1920&q=75"
+            price="8.00"
+            name="Strawberry"
+            count={count}
+            onIncrement={handleAdd}
+            onDecrement={handleSubtract}
+            disabled={count === 0}
+          />
+        </GridItem>{" "} */}
+      </Grid>
+    </Box>
+  );
+};
+
+export default OrderCard;
+
+// orderCard.tsx

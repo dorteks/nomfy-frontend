@@ -1,6 +1,5 @@
 import {
   BsBox,
-  BsBasket3,
   BsClipboardData,
   BsCollection,
   BsGift,
@@ -10,6 +9,7 @@ import {
   BsShop,
   BsTruck,
   BsVectorPen,
+  BsClipboardCheck,
 } from "react-icons/bs";
 import {
   EditIcon,
@@ -25,6 +25,7 @@ import { Avatar, Box, IconButton, Text } from "@chakra-ui/react";
 import { RiRefund2Line, RiListSettingsLine } from "react-icons/ri";
 import { Menu, MenuItem, ProSidebarProvider } from "react-pro-sidebar";
 import Link from "next/link";
+import { getSingleUserInfo } from "../app/api/auth/user.query";
 
 type Props = {
   title: React.ReactNode;
@@ -53,7 +54,6 @@ const Sidebar = () => {
       </Link>
     );
   };
-
   return (
     <ProSidebarProvider>
       <Menu>
@@ -167,7 +167,7 @@ const Sidebar = () => {
             />
             <Item
               title="Orders"
-              icon={<BsBasket3 />}
+              icon={<BsClipboardCheck />}
               selected={selected}
               setSelected={setSelected}
               href="/pickbazar/orders"
